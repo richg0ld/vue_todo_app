@@ -1,65 +1,32 @@
 <template>
   <section class="sort">
     <div class="sort--important">
-      <span class="sort__checkbox--important">
-          <input id="f_i_0" type="checkbox" name="important" />
-          <label for="f_i_0">모두</label>
-      </span>
-      <span class="sort__checkbox--important">
-          <input id="f_i_1" type="checkbox" name="important" />
-          <label for="f_i_1">매우중요</label>
-      </span>
-      <span class="sort__checkbox--important">
-          <input id="f_i_2" type="checkbox" name="important" />
-          <label for="f_i_2">중요</label>
-      </span>
-      <span class="sort__checkbox--important">
-          <input id="f_i_3" type="checkbox" name="important" />
-          <label for="f_i_3">보통</label>
+      <span v-for="(importantOption, i) in importantOptions" class="sort__checkbox--important">
+          <input :id="'fi_'+i" type="checkbox" name="important" :title="importantOption" :value="importantOption" v-model="filterOptions.important"/>
+          <label :for="'fi_'+i">{{ importantOption }}</label>
       </span>
     </div>
     <div class="sort--complete">
-      <span class="sort__checkbox--complete">
-          <input id="f_c_0" type="checkbox" name="comp" />
-          <label for="f_c_0">모두</label>
-      </span>
-      <span class="sort__checkbox--complete">
-          <input id="f_c_1" type="checkbox" name="comp" />
-          <label for="f_c_1">완료</label>
-      </span>
-      <span class="sort__checkbox--complete">
-          <input id="f_c_2" type="checkbox" name="comp" />
-          <label for="f_c_2">미완료</label>
+      <span v-for="(completeOption, i) in completeOptions" class="sort__checkbox--complete">
+          <input :id="'fc_'+i" type="checkbox" name="comp" :title="completeOption" :value="completeOption" v-model="filterOptions.comp"/>
+          <label :for="'fc_'+i">{{ completeOption }}</label>
       </span>
     </div>
   </section>
 </template>
 
 <script>
+
   export default {
     name: 'sort',
+    props: ['filterOptions'],
     data () {
-      return { }
+      return {
+        importantOptions: ["모두", "매우중요", "중요", "보통"],
+        completeOptions: ["모두", "완료", "미완료"]
+      }
     }
   }
 </script>
 
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-</style>
+<style scoped></style>

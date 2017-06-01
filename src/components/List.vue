@@ -1,37 +1,37 @@
 <template>
   <div class="list">
     <ul>
-      <li v-for="todo in todos"><a href="https://vuejs.org" target="_blank">{{ todo.text }}</a></li>
+      <li v-for="todo in filteredTodos">
+        <detail :todo="todo"></detail>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+  import Detail from './Detail.vue'
+
   export default {
     name: 'list',
-    props: ['todos'],
+    props: ['todos', 'filterOptions'],
+    components:{
+      Detail
+    },
     data () {
       return {}
+    },
+    computed: {
+      filteredTodos() {
+        return this.todos.filter(v=>{
+          if(this.filterOptions.important.includes("모두")) return true;
+          return this.filterOptions.important.includes(v.important);
+        }).filter(v=>{
+          if(this.filterOptions.comp.includes("모두")) return true;
+          return this.filterOptions.comp.includes(v.comp ? "완료" : "미완료");
+        });
+      }
     }
   }
 </script>
 
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-</style>
+<style scoped></style>
